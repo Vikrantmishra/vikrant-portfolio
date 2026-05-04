@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Vikrant Mishra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html">VM</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button class="theme-toggle" aria-label="Toggle color theme">&#9680;</button>
+  </header>
+
+  <main>
+    <section class="page-hero reveal">
+      <p class="eyebrow">Projects</p>
+      <h1>Live GitHub projects plus resume highlights.</h1>
+      <p>The grid below fetches public repositories from GitHub in the browser, then blends them with richer descriptions from the resume. Use the filters to scan by stack.</p>
+    </section>
+
+    <section class="project-toolbar reveal">
+      <div class="filters" id="projectFilters" aria-label="Project filters">
+        <button class="active" data-filter="all">All</button>
+        <button data-filter="JavaScript">JavaScript</button>
+        <button data-filter="Python">Python</button>
+        <button data-filter="Jupyter Notebook">Jupyter</button>
+        <button data-filter="CSS">CSS</button>
+        <button data-filter="PHP">PHP</button>
+        <button data-filter="EJS">EJS</button>
+        <button data-filter="TypeScript">TypeScript</button>
+      </div>
+      <label class="search-box">
+        <span>Search</span>
+        <input id="projectSearch" type="search" placeholder="Project name or language">
+      </label>
+    </section>
+
+    <section class="project-grid reveal" id="projectGrid" aria-live="polite">
+      <p class="loading">Fetching GitHub projects...</p>
+    </section>
+  </main>
+
+  <div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+    <div class="modal-panel">
+      <button class="modal-close" aria-label="Close project details">&times;</button>
+      <p class="eyebrow" id="modalMeta"></p>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDescription"></p>
+      <div class="modal-tags" id="modalTags"></div>
+      <a class="button primary" id="modalLink" target="_blank" rel="noreferrer">Open Project</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>Repositories load from <a href="https://github.com/Vikrantmishra" target="_blank" rel="noreferrer">GitHub</a>.</p>
+    <a href="contact.html">Work with me</a>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
