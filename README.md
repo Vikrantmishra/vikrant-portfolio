@@ -5,9 +5,14 @@ Multi-page portfolio website for Vikrant Mishra, built with plain HTML, CSS, and
 ## Pages
 
 - `index.html` - home page with hero, skills, stats, and project carousel
-- `about.html` - education, profile, languages, and skill bars
-- `projects.html` - GitHub-powered project grid with filters, search, and modal details
+- `about.html` - education, profile, languages, resume, certificate, and skill bars
+- `projects.html` - selected project grid with filters, search, and modal details
 - `contact.html` - contact links and email-prep form
+
+## Assets
+
+- `assets/vikrant-mishra-resume.pdf` - downloadable resume
+- `assets/usi-imhf-2025-certificate.pdf` - USI IMHF 2025 internship certificate
 
 ## Vercel
 
@@ -16,4 +21,3 @@ This is a static site. Import the GitHub repository into Vercel and use the defa
 - Framework Preset: Other
 - Build Command: leave empty
 - Output Directory: `.`
-

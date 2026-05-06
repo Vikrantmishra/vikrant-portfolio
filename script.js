@@ -1,4 +1,3 @@
-const githubUser = "Vikrantmishra";
 let allProjects = [];
 let activeFilter = "all";
 let activeSlide = 0;
@@ -61,16 +60,17 @@ function initCounters() {
       if (!entry.isIntersecting) return;
       const el = entry.target;
       const target = Number(el.dataset.count);
-      const isDecimal = !Number.isInteger(target);
+      const decimalPlaces = (el.dataset.count.split(".")[1] || "").length;
+      const isDecimal = decimalPlaces > 0;
       let current = 0;
       const step = target / 42;
       const tick = () => {
         current += step;
         if (current >= target) {
-          el.textContent = isDecimal ? target.toFixed(1) : String(target);
+          el.textContent = isDecimal ? target.toFixed(decimalPlaces) : String(target);
           return;
         }
-        el.textContent = isDecimal ? current.toFixed(1) : String(Math.ceil(current));
+        el.textContent = isDecimal ? current.toFixed(decimalPlaces) : String(Math.ceil(current));
         requestAnimationFrame(tick);
       };
       tick();
@@ -81,42 +81,7 @@ function initCounters() {
 }
 
 async function fetchGithubProjects() {
-  try {
-    const response = await fetch(`https://api.github.com/users/${githubUser}/repos?sort=updated&per_page=100`, {
-      headers: { Accept: "application/vnd.github+json" }
-    });
-    if (!response.ok) throw new Error("GitHub request failed");
-    const repos = await response.json();
-    const mapped = repos
-      .filter((repo) => !repo.private)
-      .map((repo) => {
-        const override = PROJECT_OVERRIDES[repo.name] || {};
-        return {
-          name: repo.name,
-          title: override.title || prettifyName(repo.name),
-          description: override.description || repo.description || "A public GitHub repository from Vikrant Mishra.",
-          language: repo.language || override.language || "Code",
-          tags: override.tags || [repo.language || "Code"],
-          url: repo.html_url,
-          homepage: repo.homepage || override.homepage || "",
-          stars: repo.stargazers_count || 0,
-          forks: repo.forks_count || 0,
-          updated: repo.updated_at,
-          featured: Boolean(override.featured)
-        };
-      });
-    const merged = [...mapped];
-    FALLBACK_PROJECTS.forEach((project) => {
-      if (!merged.some((item) => item.name === project.name)) merged.push(project);
-    });
-    return merged;
-  } catch (error) {
-    return FALLBACK_PROJECTS;
-  }
-}
-
-function prettifyName(name) {
-  return name.replace(/[-_]/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+  return FALLBACK_PROJECTS;
 }
 
 async function getProjects() {
@@ -199,13 +164,13 @@ function projectCard(project) {
     <article class="project-card" tabindex="0">
       <div class="card-top">
         <span>${project.language || "Code"}</span>
-        <span>Stars ${project.stars || 0} / Forks ${project.forks || 0}</span>
+        <span>${project.type || "Project"} / ${project.year || "Recent"}</span>
       </div>
       <h3>${project.title}</h3>
       <p>${project.description}</p>
       <div class="tag-row">${project.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
       <div class="card-actions">
-        <a href="${project.homepage || project.url}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">Live / Repo</a>
+        <a href="${project.homepage || project.url}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">View Project</a>
         <button type="button">Details</button>
       </div>
     </article>
@@ -227,7 +192,7 @@ function initModal() {
 function openProjectModal(project) {
   const modal = document.getElementById("projectModal");
   if (!modal) return;
-  document.getElementById("modalMeta").textContent = `${project.language || "Code"} - ${project.name}`;
+  document.getElementById("modalMeta").textContent = `${project.type || "Project"} - ${project.language || "Code"}`;
   document.getElementById("modalTitle").textContent = project.title;
   document.getElementById("modalDescription").textContent = project.description;
   document.getElementById("modalTags").innerHTML = project.tags.map((tag) => `<span>${tag}</span>`).join("");

@@ -166,6 +166,7 @@ h3 {
 .page-hero p,
 .section-copy p,
 .project-card p,
+.document-card p,
 .profile-panel p,
 .timeline p {
   color: var(--muted);
@@ -335,6 +336,7 @@ h3 {
 }
 
 .featured-section,
+.document-section,
 .skills-section {
   padding: 0 clamp(18px, 6vw, 88px) 86px;
 }
@@ -407,6 +409,20 @@ h3 {
   border-radius: 8px;
   background: var(--surface);
   cursor: pointer;
+  box-shadow: 0 12px 40px rgba(24, 32, 31, 0.06);
+}
+
+.document-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.document-card {
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
   box-shadow: 0 12px 40px rgba(24, 32, 31, 0.06);
 }
 
@@ -728,6 +744,7 @@ h3 {
   }
 
   .stats-band,
+  .document-grid,
   .project-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -782,6 +799,7 @@ h3 {
   }
 
   .stats-band,
+  .document-grid,
   .project-grid,
   .contact-cards {
     grid-template-columns: 1fr;

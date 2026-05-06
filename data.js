@@ -1,57 +1,38 @@
 const FALLBACK_PROJECTS = [
   {
-    name: "lightsOut",
-    title: "Lights Out Game",
-    description: "Interactive Lights Out puzzle game built with Express.js, Node.js, Tailwind, and JavaScript. The project focuses on mathematical implementation, level progression, optimal-solution thinking, and hints for players.",
-    language: "CSS",
-    tags: ["Node.js", "Express.js", "Tailwind", "JavaScript", "Game Logic"],
-    url: "https://github.com/Vikrantmishra/lightsOut",
+    name: "exam-hub",
+    title: "Exam Hub - AI Mock Test Generation",
+    description: "Exam Hub is a mock-test generation platform for SSC and banking exam preparation. It uses AI to create practice tests, helping learners generate structured exam-style questions and prepare with a focused digital workflow.",
+    language: "Python",
+    type: "AI EdTech Platform",
+    year: "2026",
+    tags: ["AI", "Mock Tests", "SSC", "Banking Exams", "Exam Prep"],
+    url: "https://github.com/Vikrantmishra/MOCK_TEST",
     homepage: "",
-    stars: 0,
-    forks: 0,
     featured: true
   },
   {
-    name: "nurseryniche",
-    title: "Nursery Management Website",
-    description: "A data-backed website for nursery owners to manage daily farm and business details. Built with PHP, MySQL, JavaScript, HTML, and CSS, with categories for storing nursery records.",
-    language: "PHP",
-    tags: ["PHP", "MySQL", "JavaScript", "HTML", "CSS"],
-    url: "https://github.com/Vikrantmishra/nurseryniche",
-    homepage: "https://vikrantmishra.github.io/nurseryniche/",
-    stars: 1,
-    forks: 0,
+    name: "court-efficiency-index",
+    title: "Court Efficiency Index",
+    description: "Built a Court Efficiency Index using NITI Aayog data from pan-India subordinate courts. The index uses delay ratio, old pending percentage, pending case growth, case disposal rate, and pending-to-disposed ratio, with PCA-based weights and geospatial visualization in QGIS.",
+    language: "Jupyter Notebook",
+    type: "Data Analysis",
+    year: "2024",
+    tags: ["Data Analysis", "PCA", "QGIS", "Geospatial Visualization", "Public Data"],
+    url: "https://github.com/Vikrantmishra/Court-Casess",
+    homepage: "",
     featured: true
   },
   {
-    name: "Jokesproject",
-    title: "Jokes API Project",
-    description: "A jokes webpage that fetches data from an API and renders it with a server-side JavaScript stack.",
-    language: "EJS",
-    tags: ["EJS", "API", "JavaScript"],
-    url: "https://github.com/Vikrantmishra/Jokesproject",
+    name: "bankruptcy-prediction",
+    title: "Bankruptcy Prediction Model",
+    description: "Developed a hybrid bankruptcy prediction model combining neural networks, XGBoost, and logistic regression to classify company bankruptcy from financial ratios and indicators. Used SMOTE for imbalance handling, stacked autoencoders for dimensionality reduction, and achieved 97 percent accuracy with AUC of 0.97.",
+    language: "Jupyter Notebook",
+    type: "Machine Learning",
+    year: "2024",
+    tags: ["Machine Learning", "XGBoost", "Neural Networks", "SMOTE", "Finance"],
+    url: "https://github.com/Vikrantmishra/Bankruptcy-Prediction",
     homepage: "",
-    stars: 0,
-    forks: 0,
-    featured: true
-  },
-  {
-    name: "DiceGame",
-    title: "Dice Game",
-    description: "A compact browser game built with JavaScript fundamentals, DOM updates, and random game state.",
-    language: "JavaScript",
-    tags: ["JavaScript", "DOM", "Game"],
-    url: "https://github.com/Vikrantmishra/DiceGame",
-    homepage: "",
-    stars: 0,
-    forks: 0,
     featured: true
   }
 ];
-
-const PROJECT_OVERRIDES = {
-  lightsOut: FALLBACK_PROJECTS[0],
-  nurseryniche: FALLBACK_PROJECTS[1],
-  Jokesproject: FALLBACK_PROJECTS[2],
-  DiceGame: FALLBACK_PROJECTS[3]
-};

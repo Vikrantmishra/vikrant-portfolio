@@ -25,20 +25,18 @@
   <main>
     <section class="page-hero reveal">
       <p class="eyebrow">Projects</p>
-      <h1>Live GitHub projects plus resume highlights.</h1>
-      <p>The grid below fetches public repositories from GitHub in the browser, then blends them with richer descriptions from the resume. Use the filters to scan by stack.</p>
+      <h1>Projects built around AI, public data, and predictive modelling.</h1>
+      <p>These selected projects show my work in AI-based exam preparation, court-efficiency analytics, and financial risk prediction.</p>
     </section>
 
     <section class="project-toolbar reveal">
       <div class="filters" id="projectFilters" aria-label="Project filters">
         <button class="active" data-filter="all">All</button>
-        <button data-filter="JavaScript">JavaScript</button>
+        <button data-filter="AI">AI</button>
         <button data-filter="Python">Python</button>
         <button data-filter="Jupyter Notebook">Jupyter</button>
-        <button data-filter="CSS">CSS</button>
-        <button data-filter="PHP">PHP</button>
-        <button data-filter="EJS">EJS</button>
-        <button data-filter="TypeScript">TypeScript</button>
+        <button data-filter="Machine Learning">Machine Learning</button>
+        <button data-filter="QGIS">QGIS</button>
       </div>
       <label class="search-box">
         <span>Search</span>
@@ -47,7 +45,7 @@
     </section>
 
     <section class="project-grid reveal" id="projectGrid" aria-live="polite">
-      <p class="loading">Fetching GitHub projects...</p>
+      <p class="loading">Loading selected projects...</p>
     </section>
   </main>
 
@@ -58,12 +56,12 @@
       <h2 id="modalTitle"></h2>
       <p id="modalDescription"></p>
       <div class="modal-tags" id="modalTags"></div>
-      <a class="button primary" id="modalLink" target="_blank" rel="noreferrer">Open Project</a>
+      <a class="button primary" id="modalLink" target="_blank" rel="noreferrer">View Project</a>
     </div>
   </div>
 
   <footer class="site-footer">
-    <p>Repositories load from <a href="https://github.com/Vikrantmishra" target="_blank" rel="noreferrer">GitHub</a>.</p>
+    <p>Selected projects by Vikrant Mishra.</p>
     <a href="contact.html">Work with me</a>
   </footer>
 
