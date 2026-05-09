@@ -1,8 +1,9 @@
 window.firebaseConfig = {
-  apiKey: "PASTE_YOUR_API_KEY",
-  authDomain: "PASTE_YOUR_PROJECT.firebaseapp.com",
-  projectId: "PASTE_YOUR_PROJECT_ID",
-  storageBucket: "PASTE_YOUR_PROJECT.appspot.com",
-  messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID",
-  appId: "PASTE_YOUR_APP_ID"
+  apiKey: "AIzaSyCeyLP9EsA4wwhdM71RBfCBgUOIrNFe5qI",
+  authDomain: "vikrant-portfolio-72e67.firebaseapp.com",
+  projectId: "vikrant-portfolio-72e67",
+  storageBucket: "vikrant-portfolio-72e67.firebasestorage.app",
+  messagingSenderId: "857634991285",
+  appId: "1:857634991285:web:756d62b4690709ec61e2fc",
+  measurementId: "G-F72141B8WV"
 };
