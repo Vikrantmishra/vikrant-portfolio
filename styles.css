@@ -577,6 +577,9 @@ h3 {
 }
 
 .search-box input,
+.admin-editor input,
+.admin-editor textarea,
+.admin-panel input,
 .contact-form input,
 .contact-form select,
 .contact-form textarea {
@@ -652,6 +655,110 @@ h3 {
 .contact-form textarea {
   padding: 14px;
   resize: vertical;
+}
+
+.admin-shell {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.36fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+  padding: 0 clamp(18px, 6vw, 88px) 86px;
+}
+
+.admin-panel,
+.admin-section,
+.project-editor,
+.admin-save-bar {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.admin-panel {
+  position: sticky;
+  top: 96px;
+}
+
+.admin-editor {
+  display: grid;
+  gap: 18px;
+}
+
+.admin-section {
+  display: grid;
+  gap: 16px;
+}
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.admin-editor label,
+.admin-panel label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.admin-editor input,
+.admin-panel input {
+  min-height: 46px;
+  padding: 0 14px;
+}
+
+.admin-editor textarea {
+  padding: 14px;
+  resize: vertical;
+  min-height: 110px;
+}
+
+.project-editor {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.project-editor .card-top button {
+  border: 0;
+  background: transparent;
+  color: var(--accent-2);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.check-row {
+  display: flex !important;
+  grid-template-columns: none !important;
+  align-items: center;
+  gap: 10px !important;
+}
+
+.check-row input {
+  width: auto;
+  min-height: auto;
+}
+
+.admin-save-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  box-shadow: var(--shadow);
+}
+
+.admin-actions {
+  margin-top: 16px;
+}
+
+.compact-heading {
+  margin-bottom: 0;
 }
 
 .form-status {
@@ -735,6 +842,7 @@ h3 {
   .hero,
   .section-grid,
   .timeline-section,
+  .admin-shell,
   .contact-layout {
     grid-template-columns: 1fr;
   }
@@ -752,6 +860,10 @@ h3 {
   .project-toolbar {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .admin-panel {
+    position: static;
   }
 }
 
@@ -799,6 +911,7 @@ h3 {
   }
 
   .stats-band,
+  .admin-grid,
   .document-grid,
   .project-grid,
   .contact-cards {

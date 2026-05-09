@@ -18,6 +18,7 @@
       <a href="about.html">About</a>
       <a href="projects.html" class="active">Projects</a>
       <a href="contact.html">Contact</a>
+      <a href="admin.html">Admin</a>
     </nav>
     <button class="theme-toggle" aria-label="Toggle color theme">&#9680;</button>
   </header>
@@ -25,8 +26,8 @@
   <main>
     <section class="page-hero reveal">
       <p class="eyebrow">Projects</p>
-      <h1>Projects built around AI, public data, and predictive modelling.</h1>
-      <p>These selected projects show my work in AI-based exam preparation, court-efficiency analytics, and financial risk prediction.</p>
+      <h1 data-content="projectsPageTitle">Projects built around AI, public data, and predictive modelling.</h1>
+      <p data-content="projectsPageText">These selected projects show my work in AI-based exam preparation, court-efficiency analytics, and financial risk prediction.</p>
     </section>
 
     <section class="project-toolbar reveal">
@@ -66,6 +67,8 @@
   </footer>
 
   <script src="data.js"></script>
+  <script src="firebase-config.js"></script>
+  <script type="module" src="firebase-service.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

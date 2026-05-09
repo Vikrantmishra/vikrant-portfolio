@@ -18,6 +18,7 @@
       <a href="about.html" class="active">About</a>
       <a href="projects.html">Projects</a>
       <a href="contact.html">Contact</a>
+      <a href="admin.html">Admin</a>
     </nav>
     <button class="theme-toggle" aria-label="Toggle color theme">&#9680;</button>
   </header>
@@ -25,12 +26,12 @@
   <main>
     <section class="page-hero reveal">
       <p class="eyebrow">About Me</p>
-      <h1>Developer with a mathematical problem-solving spine.</h1>
-      <p>I'm Vikrant Mishra, an  full stack web developer and data analyst from New Delhi. I'm studying B.Tech in Information Technology & Mathematical Innovation at Cluster Innovation Centre, University of Delhi, where I combine software engineering, data analysis, and computational thinking.</p>
+      <h1 data-content="aboutTitle">Developer with a mathematical problem-solving spine.</h1>
+      <p data-content="aboutText">I'm Vikrant Mishra, a full stack web developer and data analyst from New Delhi. I'm studying B.Tech in Information Technology & Mathematical Innovation at Cluster Innovation Centre, University of Delhi, where I combine software engineering, data analysis, and computational thinking.</p>
     </section>
 
     <section class="timeline-section">
-      <div class="timeline reveal">
+      <div class="timeline reveal" data-render="education">
         <article>
           <span>2022 - Present</span>
           <h3>University of Delhi, Cluster Innovation Centre</h3>
@@ -49,9 +50,9 @@
       </div>
       <aside class="profile-panel reveal">
         <img src="assets/vikrant-photo.jpeg" alt="Vikrant Mishra">
-        <h2>Vikrant Mishra</h2>
-        <p>Full stack learner focused on JavaScript, React, Node.js, Express.js, Python, PostgreSQL, MySQL, and data-driven web experiences.</p>
-        <div class="info-list">
+        <h2 data-content="name">Vikrant Mishra</h2>
+        <p data-content="profileSummary">Full stack learner focused on JavaScript, React, Node.js, Express.js, Python, PostgreSQL, MySQL, and data-driven web experiences.</p>
+        <div class="info-list" data-render="profileFacts">
           <span>New Delhi</span>
           <span>English, Hindi, French</span>
           <span>USI event management internship</span>
@@ -64,7 +65,7 @@
         <p class="eyebrow">Resume & Internship</p>
         <h2>Resume and USI certificate</h2>
       </div>
-      <div class="document-grid">
+      <div class="document-grid" data-render="documents">
         <article class="document-card">
           <h3>Latest Resume</h3>
           <p>Download or view my latest resume with education, technical skills, coursework, and selected projects.</p>
@@ -89,7 +90,7 @@
         <p class="eyebrow">Skills</p>
         <h2>Technical toolkit</h2>
       </div>
-      <div class="skill-bars">
+      <div class="skill-bars" data-render="skillBars">
         <div><span>JavaScript / React</span><b><i style="width: 88%"></i></b></div>
         <div><span>Node.js / Express.js</span><b><i style="width: 84%"></i></b></div>
         <div><span>HTML / CSS / Bootstrap / Tailwind / EJS</span><b><i style="width: 90%"></i></b></div>
@@ -106,6 +107,8 @@
   </footer>
 
   <script src="data.js"></script>
+  <script src="firebase-config.js"></script>
+  <script type="module" src="firebase-service.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,11 +1,14 @@
+let portfolioData = DEFAULT_PORTFOLIO;
 let allProjects = [];
 let activeFilter = "all";
 let activeSlide = 0;
 let slideTimer;
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   initTheme();
   initNav();
+  portfolioData = await loadPortfolioData();
+  applyPortfolioData(portfolioData);
   initReveal();
   initCounters();
   initModal();
@@ -13,6 +16,147 @@ document.addEventListener("DOMContentLoaded", () => {
   loadFeaturedCarousel();
   loadProjectGrid();
 });
+
+async function loadPortfolioData() {
+  try {
+    if (!window.PortfolioFirebaseReady) return DEFAULT_PORTFOLIO;
+    const firebase = await window.PortfolioFirebaseReady;
+    if (!firebase.enabled) return DEFAULT_PORTFOLIO;
+    const remoteData = await firebase.getPortfolioData();
+    return remoteData ? mergePortfolio(DEFAULT_PORTFOLIO, remoteData) : DEFAULT_PORTFOLIO;
+  } catch (error) {
+    console.warn("Using local portfolio data because Firebase could not load.", error);
+    return DEFAULT_PORTFOLIO;
+  }
+}
+
+function mergePortfolio(defaults, remote) {
+  return {
+    ...defaults,
+    ...remote,
+    profile: { ...defaults.profile, ...(remote.profile || {}) },
+    stats: remote.stats || defaults.stats,
+    skills: remote.skills || defaults.skills,
+    education: remote.education || defaults.education,
+    profileFacts: remote.profileFacts || defaults.profileFacts,
+    skillBars: remote.skillBars || defaults.skillBars,
+    projects: remote.projects || defaults.projects,
+    documents: remote.documents || defaults.documents,
+    contactCards: remote.contactCards || defaults.contactCards
+  };
+}
+
+function applyPortfolioData(data) {
+  const profile = data.profile || {};
+  setText("[data-content='role']", profile.role);
+  setText("[data-content='name']", profile.name);
+  setText("[data-content='heroLead']", profile.heroLead);
+  setText("[data-content='status']", profile.status);
+  setText("[data-content='whatIDoTitle']", profile.whatIDoTitle);
+  setText("[data-content='whatIDoText']", profile.whatIDoText);
+  setText("[data-content='projectsTitle']", profile.projectsTitle);
+  setText("[data-content='projectsPageTitle']", profile.projectsPageTitle);
+  setText("[data-content='projectsPageText']", profile.projectsPageText);
+  setText("[data-content='aboutTitle']", profile.aboutTitle);
+  setText("[data-content='aboutText']", profile.aboutText);
+  setText("[data-content='contactEmail']", profile.email);
+  setText("[data-content='profileSummary']", `Full stack learner focused on ${data.skills.slice(0, 8).join(", ")} and data-driven web experiences.`);
+
+  setHref("[data-link='github']", profile.github);
+  setHref("[data-link='linkedin']", profile.linkedin);
+  setHref("[data-link='email']", `mailto:${profile.email}`);
+  setHref("[data-link='resume']", getDocumentUrl(data, "Resume"));
+
+  renderStats(data.stats);
+  renderSkills(data.skills);
+  renderDocuments(data.documents);
+  renderEducation(data.education);
+  renderProfileFacts(data.profileFacts);
+  renderSkillBars(data.skillBars);
+  renderContactCards(data.contactCards);
+}
+
+function setText(selector, value) {
+  if (!value) return;
+  document.querySelectorAll(selector).forEach((element) => {
+    element.textContent = value;
+  });
+}
+
+function setHref(selector, value) {
+  if (!value) return;
+  document.querySelectorAll(selector).forEach((element) => {
+    element.href = value;
+  });
+}
+
+function getDocumentUrl(data, title) {
+  const item = (data.documents || []).find((document) => document.title.toLowerCase().includes(title.toLowerCase()));
+  return item?.url || "#";
+}
+
+function renderStats(stats = []) {
+  const container = document.querySelector("[data-render='stats']");
+  if (!container) return;
+  container.innerHTML = stats.map((stat) => `<div><strong data-count="${escapeHtml(stat.value)}">0</strong><span>${escapeHtml(stat.label)}</span></div>`).join("");
+}
+
+function renderSkills(skills = []) {
+  document.querySelectorAll("[data-render='skills']").forEach((container) => {
+    container.innerHTML = skills.map((skill) => `<span>${escapeHtml(skill)}</span>`).join("");
+  });
+}
+
+function renderDocuments(documents = []) {
+  document.querySelectorAll("[data-render='documents']").forEach((container) => {
+    container.innerHTML = documents.map((document) => `
+      <article class="document-card">
+        <h3>${escapeHtml(document.title)}</h3>
+        <p>${escapeHtml(document.description)}</p>
+        <div class="hero-actions">
+          <a class="button primary" href="${escapeAttribute(document.url)}" target="_blank" rel="noreferrer">${escapeHtml(document.viewLabel || "View")}</a>
+          <a class="button ghost" href="${escapeAttribute(document.url)}" download>${escapeHtml(document.downloadLabel || "Download")}</a>
+        </div>
+      </article>
+    `).join("");
+  });
+}
+
+function renderEducation(education = []) {
+  const container = document.querySelector("[data-render='education']");
+  if (!container) return;
+  container.innerHTML = education.map((item) => `
+    <article>
+      <span>${escapeHtml(item.period)}</span>
+      <h3>${escapeHtml(item.title)}</h3>
+      <p>${escapeHtml(item.description)}</p>
+    </article>
+  `).join("");
+}
+
+function renderProfileFacts(facts = []) {
+  const container = document.querySelector("[data-render='profileFacts']");
+  if (!container) return;
+  container.innerHTML = facts.map((fact) => `<span>${escapeHtml(fact)}</span>`).join("");
+}
+
+function renderSkillBars(skillBars = []) {
+  const container = document.querySelector("[data-render='skillBars']");
+  if (!container) return;
+  container.innerHTML = skillBars.map((skill) => `
+    <div><span>${escapeHtml(skill.label)}</span><b><i style="width: ${Number(skill.value) || 0}%"></i></b></div>
+  `).join("");
+}
+
+function renderContactCards(cards = []) {
+  const container = document.querySelector("[data-render='contactCards']");
+  if (!container) return;
+  container.innerHTML = cards.map((card) => `
+    <a href="${escapeAttribute(card.href)}" ${card.href?.startsWith("http") ? 'target="_blank" rel="noreferrer"' : ""}>
+      <strong>${escapeHtml(card.label)}</strong><span>${escapeHtml(card.value)}</span>
+    </a>
+  `).join("");
+}
 
 function initTheme() {
   const saved = localStorage.getItem("portfolio-theme");
@@ -80,12 +224,8 @@ function initCounters() {
   counters.forEach((counter) => observer.observe(counter));
 }
 
-async function fetchGithubProjects() {
-  return FALLBACK_PROJECTS;
-}
-
 async function getProjects() {
-  if (!allProjects.length) allProjects = await fetchGithubProjects();
+  if (!allProjects.length) allProjects = portfolioData.projects || FALLBACK_PROJECTS;
   return allProjects;
 }
 
@@ -163,14 +303,14 @@ function projectCard(project) {
   return `
     <article class="project-card" tabindex="0">
       <div class="card-top">
-        <span>${project.language || "Code"}</span>
-        <span>${project.type || "Project"} / ${project.year || "Recent"}</span>
+        <span>${escapeHtml(project.language || "Code")}</span>
+        <span>${escapeHtml(project.type || "Project")} / ${escapeHtml(project.year || "Recent")}</span>
       </div>
-      <h3>${project.title}</h3>
-      <p>${project.description}</p>
-      <div class="tag-row">${project.tags.map((tag) => `<span>${tag}</span>`).join("")}</div>
+      <h3>${escapeHtml(project.title)}</h3>
+      <p>${escapeHtml(project.description)}</p>
+      <div class="tag-row">${project.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
       <div class="card-actions">
-        <a href="${project.homepage || project.url}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">View Project</a>
+        <a href="${escapeAttribute(project.homepage || project.url)}" target="_blank" rel="noreferrer" onclick="event.stopPropagation()">View Project</a>
         <button type="button">Details</button>
       </div>
     </article>
@@ -195,7 +335,7 @@ function openProjectModal(project) {
   document.getElementById("modalMeta").textContent = `${project.type || "Project"} - ${project.language || "Code"}`;
   document.getElementById("modalTitle").textContent = project.title;
   document.getElementById("modalDescription").textContent = project.description;
-  document.getElementById("modalTags").innerHTML = project.tags.map((tag) => `<span>${tag}</span>`).join("");
+  document.getElementById("modalTags").innerHTML = project.tags.map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
   document.getElementById("modalLink").href = project.homepage || project.url;
   modal.hidden = false;
   document.body.classList.add("modal-open");
@@ -214,9 +354,23 @@ function initContactForm() {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const data = new FormData(form);
+    const contactEmail = portfolioData.profile?.email || DEFAULT_PORTFOLIO.profile.email;
     const subject = encodeURIComponent(`Portfolio inquiry: ${data.get("type")}`);
     const body = encodeURIComponent(`Name: ${data.get("name")}\nEmail: ${data.get("email")}\nProject Type: ${data.get("type")}\n\n${data.get("message")}`);
     document.getElementById("formStatus").textContent = "Opening your email app with the message prepared.";
-    window.location.href = `mailto:viirantmishra2005@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
   });
+}
+
+function escapeHtml(value = "") {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function escapeAttribute(value = "") {
+  return escapeHtml(value);
 }

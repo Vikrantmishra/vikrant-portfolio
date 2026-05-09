@@ -18,6 +18,7 @@
       <a href="about.html">About</a>
       <a href="projects.html">Projects</a>
       <a href="contact.html" class="active">Contact</a>
+      <a href="admin.html">Admin</a>
     </nav>
     <button class="theme-toggle" aria-label="Toggle color theme">&#9680;</button>
   </header>
@@ -28,7 +29,7 @@
         <p class="eyebrow">Contact</p>
         <h1>Let's discuss a build, internship, or collaboration.</h1>
         <p>Send a quick message from the form or reach me directly through email, LinkedIn, or GitHub.</p>
-        <div class="contact-cards">
+        <div class="contact-cards" data-render="contactCards">
           <a href="mailto:viirantmishra2005@gmail.com"><strong>Email</strong><span>viirantmishra2005@gmail.com</span></a>
           <a href="tel:+917905938024"><strong>Phone</strong><span>+91 7905938024</span></a>
           <a href="https://www.linkedin.com/in/vikrant-mishra-03524625a" target="_blank" rel="noreferrer"><strong>LinkedIn</strong><span>vikrant-mishra-03524625a</span></a>
@@ -61,6 +62,8 @@
   </footer>
 
   <script src="data.js"></script>
+  <script src="firebase-config.js"></script>
+  <script type="module" src="firebase-service.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
