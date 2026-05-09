@@ -51,7 +51,10 @@ async function handleLogin(event) {
     await firebaseApi.signIn(data.get("email"), data.get("password"));
     event.currentTarget.reset();
   } catch (error) {
-    setSaveStatus(`Sign in failed: ${error.message}`);
+    const domainHelp = error.code === "auth/unauthorized-domain"
+      ? " Add this website domain in Firebase Authentication > Settings > Authorized domains."
+      : "";
+    setSaveStatus(`Sign in failed: ${error.message}${domainHelp}`);
   }
 }
 
