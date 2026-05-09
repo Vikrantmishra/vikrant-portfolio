@@ -105,6 +105,24 @@ const DEFAULT_PORTFOLIO = {
       downloadLabel: "Download"
     }
   ],
+  certifications: [
+    {
+      title: "Web Development Course",
+      provider: "Udemy",
+      description: "Certificate of completion for a web development course covering practical website and web application development.",
+      url: "assets/web-development-certificate.pdf",
+      viewLabel: "View Certificate",
+      downloadLabel: "Download"
+    },
+    {
+      title: "Supervised Machine Learning: Regression and Classification",
+      provider: "DeepLearning.AI, Stanford University & Coursera",
+      description: "Completed an online machine learning course focused on regression, classification, supervised learning workflows, and model evaluation.",
+      url: "assets/machine-learning-certificate.pdf",
+      viewLabel: "View Certificate",
+      downloadLabel: "Download"
+    }
+  ],
   contactCards: [
     { label: "Email", value: "viirantmishra2005@gmail.com", href: "mailto:viirantmishra2005@gmail.com" },
     { label: "Phone", value: "+91 7905938024", href: "tel:+917905938024" },

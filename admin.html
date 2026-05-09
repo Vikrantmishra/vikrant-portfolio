@@ -24,23 +24,29 @@
   </header>
 
   <main>
-    <section class="page-hero reveal">
+    <section class="page-hero reveal" id="adminIntro">
       <p class="eyebrow">Admin Panel</p>
       <h1>Update portfolio content from Firebase.</h1>
       <p>Sign in with a Firebase Authentication user, edit the content, and save it to the Firestore document at <code>portfolio/content</code>.</p>
     </section>
 
-    <section class="admin-shell reveal">
-      <aside class="admin-panel">
+    <section class="admin-login-layout reveal" id="loginView">
+      <aside class="admin-panel login-panel">
         <h2>Firebase Status</h2>
         <p class="form-status" id="firebaseStatus">Checking Firebase configuration...</p>
 
         <form class="contact-form" id="loginForm">
           <label>Email<input type="email" name="email" required placeholder="admin@example.com"></label>
-          <label>Password<input type="password" name="password" required placeholder="Firebase password"></label>
-          <button class="button primary" type="submit">Sign In</button>
-        </form>
+            <label>Password<input type="password" name="password" required placeholder="Firebase password"></label>
+            <button class="button primary" type="submit">Sign In</button>
+          </form>
+      </aside>
+    </section>
 
+    <section class="admin-shell reveal" id="editorView" hidden>
+      <aside class="admin-panel">
+        <h2>Editor</h2>
+        <p class="form-status" id="editorStatus">Loading editor...</p>
         <div class="hero-actions admin-actions">
           <button class="button ghost" type="button" id="loadDefaults">Load Defaults</button>
           <button class="button ghost" type="button" id="signOutButton">Sign Out</button>
@@ -84,6 +90,7 @@
         <div class="admin-section">
           <h2>Documents & Contact</h2>
           <label>Documents JSON<textarea name="documents" rows="6"></textarea></label>
+          <label>Certifications JSON<textarea name="certifications" rows="7"></textarea></label>
           <label>Contact Cards JSON<textarea name="contactCards" rows="6"></textarea></label>
         </div>
 

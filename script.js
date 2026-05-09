@@ -42,6 +42,7 @@ function mergePortfolio(defaults, remote) {
     skillBars: remote.skillBars || defaults.skillBars,
     projects: remote.projects || defaults.projects,
     documents: remote.documents || defaults.documents,
+    certifications: remote.certifications || defaults.certifications,
     contactCards: remote.contactCards || defaults.contactCards
   };
 }
@@ -70,6 +71,7 @@ function applyPortfolioData(data) {
   renderStats(data.stats);
   renderSkills(data.skills);
   renderDocuments(data.documents);
+  renderCertifications(data.certifications);
   renderEducation(data.education);
   renderProfileFacts(data.profileFacts);
   renderSkillBars(data.skillBars);
@@ -116,6 +118,22 @@ function renderDocuments(documents = []) {
         <div class="hero-actions">
           <a class="button primary" href="${escapeAttribute(document.url)}" target="_blank" rel="noreferrer">${escapeHtml(document.viewLabel || "View")}</a>
           <a class="button ghost" href="${escapeAttribute(document.url)}" download>${escapeHtml(document.downloadLabel || "Download")}</a>
+        </div>
+      </article>
+    `).join("");
+  });
+}
+
+function renderCertifications(certifications = []) {
+  document.querySelectorAll("[data-render='certifications']").forEach((container) => {
+    container.innerHTML = certifications.map((certificate) => `
+      <article class="document-card">
+        <p class="eyebrow">${escapeHtml(certificate.provider)}</p>
+        <h3>${escapeHtml(certificate.title)}</h3>
+        <p>${escapeHtml(certificate.description)}</p>
+        <div class="hero-actions">
+          <a class="button primary" href="${escapeAttribute(certificate.url)}" target="_blank" rel="noreferrer">${escapeHtml(certificate.viewLabel || "View Certificate")}</a>
+          <a class="button ghost" href="${escapeAttribute(certificate.url)}" download>${escapeHtml(certificate.downloadLabel || "Download")}</a>
         </div>
       </article>
     `).join("");

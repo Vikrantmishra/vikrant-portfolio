@@ -24,6 +24,7 @@ async function initAdmin() {
     firebaseApi.onAuthChange(async (user) => {
       signedIn = Boolean(user);
       status.textContent = user ? `Signed in as ${user.email}` : "Firebase connected. Sign in to edit.";
+      updateAdminView(user);
       setEditorEnabled(signedIn);
       if (signedIn) await loadRemoteContent();
     });
@@ -35,7 +36,10 @@ async function initAdmin() {
   }
 
   document.getElementById("loginForm").addEventListener("submit", handleLogin);
-  document.getElementById("signOutButton").addEventListener("click", () => firebaseApi?.signOut?.());
+  document.getElementById("signOutButton").addEventListener("click", async () => {
+    await firebaseApi?.signOut?.();
+    setSaveStatus("Signed out.");
+  });
   document.getElementById("loadDefaults").addEventListener("click", () => {
     adminData = structuredClone(DEFAULT_PORTFOLIO);
     fillAdminForm(adminData);
@@ -55,7 +59,7 @@ async function handleLogin(event) {
     const domainHelp = error.code === "auth/unauthorized-domain"
       ? " Add this website domain in Firebase Authentication > Settings > Authorized domains."
       : "";
-    setSaveStatus(`Sign in failed: ${error.message}${domainHelp}`);
+    setFirebaseStatus(`Sign in failed: ${error.message}${domainHelp}`);
   }
 }
 
@@ -99,6 +103,7 @@ function fillAdminForm(data) {
   setJsonField("profileFacts", data.profileFacts);
   setJsonField("skillBars", data.skillBars);
   setJsonField("documents", data.documents);
+  setJsonField("certifications", data.certifications);
   setJsonField("contactCards", data.contactCards);
   renderProjectEditor(data.projects || []);
 }
@@ -127,6 +132,7 @@ function readAdminForm() {
     skillBars: readJsonField("skillBars"),
     projects: readProjects(),
     documents: readJsonField("documents"),
+    certifications: readJsonField("certifications"),
     contactCards: readJsonField("contactCards")
   };
 }
@@ -203,6 +209,18 @@ function setEditorEnabled(enabled) {
   });
 }
 
+function updateAdminView(user) {
+  const loginView = document.getElementById("loginView");
+  const editorView = document.getElementById("editorView");
+  const editorStatus = document.getElementById("editorStatus");
+  if (!loginView || !editorView) return;
+  loginView.hidden = Boolean(user);
+  editorView.hidden = !user;
+  if (editorStatus) {
+    editorStatus.textContent = user ? `Editing as ${user.email}` : "Sign in to edit.";
+  }
+}
+
 function setField(name, value) {
   const field = document.querySelector(`[name='${name}']`);
   if (field) field.value = value || "";
@@ -223,6 +241,10 @@ function readJsonField(name) {
 
 function setSaveStatus(message) {
   document.getElementById("saveStatus").textContent = message;
+}
+
+function setFirebaseStatus(message) {
+  document.getElementById("firebaseStatus").textContent = message;
 }
 
 function initTheme() {
@@ -275,6 +297,7 @@ function mergePortfolio(defaults, remote) {
     skillBars: remote.skillBars || defaults.skillBars,
     projects: remote.projects || defaults.projects,
     documents: remote.documents || defaults.documents,
+    certifications: remote.certifications || defaults.certifications,
     contactCards: remote.contactCards || defaults.contactCards
   };
 }

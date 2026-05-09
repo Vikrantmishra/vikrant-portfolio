@@ -665,6 +665,16 @@ h3 {
   padding: 0 clamp(18px, 6vw, 88px) 86px;
 }
 
+.admin-login-layout {
+  display: grid;
+  place-items: start center;
+  padding: 0 clamp(18px, 6vw, 88px) 86px;
+}
+
+.login-panel {
+  width: min(520px, 100%);
+}
+
 .admin-panel,
 .admin-section,
 .project-editor,
