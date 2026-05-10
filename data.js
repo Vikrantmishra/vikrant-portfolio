@@ -21,8 +21,8 @@ const DEFAULT_PORTFOLIO = {
   stats: [
     { value: "9.13", label: "CGPA" },
     { value: "3", label: "Featured Projects" },
-    { value: "1", label: "USI Internship" },
-    { value: "14", label: "Core Skills" }
+    { value: "14", label: "Core Skills" },
+     { value: "2", label: "quizes Won" },
   ],
   skills: ["JavaScript", "React", "Node.js", "Express.js", "Python", "PostgreSQL", "MySQL", "Java", "HTML", "CSS", "Bootstrap", "Tailwind", "Matlab", "QGIS"],
   education: [
